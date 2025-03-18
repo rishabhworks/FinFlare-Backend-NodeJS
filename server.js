@@ -5,7 +5,14 @@ const mongoose = require("mongoose");
 const { OpenAI } = require("openai");
 
 const app = express();
-app.use(cors());
+
+// CORS Configuration
+app.use(cors({
+  origin: "https://finflare-front-end-react.vercel.app/", // Vercel frontend URL
+  methods: ["GET", "POST"], // Allowed methods
+  credentials: true // Agar cookies ya auth use karna ho
+}));
+
 app.use(express.json());
 
 // MongoDB Connection
@@ -45,7 +52,6 @@ app.post("/chatbot", async (req, res) => {
   }
 });
 
-// Server Start
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
