@@ -1,25 +1,21 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-// const mongoose = require("mongoose");
 const { OpenAI } = require("openai");
 
 const app = express();
 
 app.use(cors({
-  origin: "https://finflare-front-end-react.vercel.app",
+  origin: ["http://localhost:3000", "https://finflare-front-end-react.vercel.app"],  
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
   credentials: true
 }));
+
 app.use(express.json());
 
-// mongoose.connect(process.env.MONGO_URI)
-//   .then(() => console.log("Connected to MongoDB"))
-//   .catch(err => console.error("MongoDB connection error:", err));
-
 const openai = new OpenAI({
-  apiKey: "sk-proj-DEF...123", // Tera naya key yahan daal
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 app.post("/chatbot", async (req, res) => {
@@ -43,7 +39,7 @@ app.post("/chatbot", async (req, res) => {
     const botReply = completion.choices[0].message.content.trim();
     res.json({ reply: botReply });
   } catch (error) {
-    console.error("Error in chatbot:", error.message);
+    console.error("OpenAI Error:", error.message);
     res.status(500).json({ error: "Oops, chatbot crashed—check API key or quota!" });
   }
 });
