@@ -6,14 +6,12 @@ const { OpenAI } = require("openai");
 
 const app = express();
 
-// CORS Configuration
 app.use(cors({
-  origin: "https://finflare-front-end-react.vercel.app", // Exact Vercel frontend URL
-  methods: ["GET", "POST"], // Allowed methods
-  allowedHeaders: ["Content-Type"], // Required for POST requests
-  credentials: true // Optional, agar future mein auth chahiye
+  origin: "https://finflare-front-end-react.vercel.app",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
+  credentials: true
 }));
-
 app.use(express.json());
 
 // mongoose.connect(process.env.MONGO_URI)
@@ -21,7 +19,7 @@ app.use(express.json());
 //   .catch(err => console.error("MongoDB connection error:", err));
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: "sk-proj-DEF...123", // Tera naya key yahan daal
 });
 
 app.post("/chatbot", async (req, res) => {
