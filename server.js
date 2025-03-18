@@ -1,31 +1,29 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const { OpenAI } = require("openai");
 
 const app = express();
 
 // CORS Configuration
 app.use(cors({
-  origin: "https://finflare-front-end-react.vercel.app/", // Vercel frontend URL
+  origin: "https://finflare-front-end-react.vercel.app", // Exact Vercel frontend URL
   methods: ["GET", "POST"], // Allowed methods
-  credentials: true // Agar cookies ya auth use karna ho
+  allowedHeaders: ["Content-Type"], // Required for POST requests
+  credentials: true // Optional, agar future mein auth chahiye
 }));
 
 app.use(express.json());
 
-// MongoDB Connection
-//mongoose.connect(process.env.MONGO_URI)
-  //.then(() => console.log("Connected to MongoDB"))
- // .catch(err => console.error("MongoDB connection error:", err));
+// mongoose.connect(process.env.MONGO_URI)
+//   .then(() => console.log("Connected to MongoDB"))
+//   .catch(err => console.error("MongoDB connection error:", err));
 
-// OpenAI Setup
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Chatbot Endpoint
 app.post("/chatbot", async (req, res) => {
   const userMessage = req.body.message;
   if (!userMessage) {
