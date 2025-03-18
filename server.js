@@ -16,9 +16,9 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch(err => console.error("MongoDB connection error:", err));
+//mongoose.connect(process.env.MONGO_URI)
+  //.then(() => console.log("Connected to MongoDB"))
+ // .catch(err => console.error("MongoDB connection error:", err));
 
 // OpenAI Setup
 const openai = new OpenAI({
